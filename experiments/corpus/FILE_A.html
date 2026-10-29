@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Semantic Benchmark for PDF/UA</title>
+  </head>
+  <body>
+    <article>
+      <h1>Introduction</h1>
+      <p>
+        This document is intended as a small semantic benchmark for PDF/UA
+        generation and structure recovery. It contains headings, paragraphs,
+        lists, links, code blocks, a blockquote, a table, a figure, and
+        footnotes.
+      </p>
+      <p>
+        The main goal is to test whether common authoring pipelines preserve
+        document structure. For a general reference, see the
+        <a href="https://www.markdownguide.org/basic-syntax/">Markdown Guide</a
+        >.
+      </p>
+
+      <h2>Headings and Paragraphs</h2>
+      <p>
+        A structured document should preserve heading hierarchy. This paragraph
+        contains <strong>bold text</strong>, <em>italic text</em>, and
+        <code>inline code</code>.
+      </p>
+
+      <h3>Inline Semantics</h3>
+      <p>
+        Semantic preservation matters because a heading is not just larger text.
+        A machine-readable document should retain these distinctions<sup
+          ><a href="#fn1" id="ref1">1</a></sup
+        >.
+      </p>
+
+      <h2>Lists</h2>
+      <p>
+        Below is an unordered list with nesting:
+        <ul>
+          <li>First bullet item</li>
+          <li>
+            Second bullet item
+            <ul>
+              <li>Nested bullet item</li>
+              <li><a href="https://www.w3.org/">Link to W3C</a></li>
+            </ul>
+          </li>
+        </ul>
+      </p>
+
+      <p>
+        Below is an ordered list with nesting:
+        <ol>
+          <li>Prepare the source file.</li>
+          <li>
+            Export the document to PDF.
+            <ol>
+              <li>Enable accessibility tags if the tool supports them.</li>
+              <li>Record the export settings.</li>
+            </ol>
+          </li>
+          <li>Validate the resulting PDF.</li>
+          <li>Compare the extracted output against the source.</li>
+        </ol>
+      </p>
+
+        <h2>Blockquote</h2>
+        <blockquote>
+            A document can look visually correct while still being structurally broken. Accessibility and machine readability depend on logical structure.
+        </blockquote>
+
+    <h2>Code Block</h2>
+    <p>
+        The following shell command illustrates a simple conversion workflow:
+    </p>
+    <pre>
+<code lang="bash">
+    pandoc doc-a-semantic-article.md -o doc-a.tex
+    lualatex doc-a.tex
+</code>
+    </pre>
+        <p>A second code example in Python:</p>
+        <pre>
+            <code lang="python">
+    from pathlib import Path
+
+    source = Path("doc-a-semantic-article.md")
+    print(f"Processing {source.name}")
+            </code>
+        </pre>
+      <h2>Table Example</h2>
+      <p>
+          <table>
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Example</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Heading</td>
+                <td>'# Introduction'</td>
+                <td>Encodes section hierarchy</td>
+              </tr>
+              <tr>
+                <td>Emphasis</td>
+                <td>'*'</td>
+                <td>Marks strong importance</td>
+              </tr>
+              <tr>
+                <td>Link</td>
+                <td>'[]()'</td>
+                <td>Preserves navigation and references</td>
+              </tr>
+              <tr>
+                <td>Footnote</td>
+                <td>'^1'</td>
+                <td>Adds supporting notes</td>
+              </tr>
+              <tr>
+                <td>Code</td>
+                <td>'inline'</td>
+                <td>Distinguishes literal code from text</td>
+              </tr>
+            </tbody>
+          </table>
+        </p>
+        <h2>Figure Example</h2>
+        <figure>
+          <img
+            src="../assets/FILE_A_IMG.jpg"
+            alt="A picture of a bench with coffee and a croissant."
+            style="max-width: 100%"
+          />
+          <figcaption>
+            Figure A1. Example figure used to test image handling and alt text.
+          </figcaption>
+        </figure>
+        <h2>Footnotes and Closing</h2>
+        <p>
+          This sentence includes a footnote for testing purposes.<sup
+            ><a href="#fn2" id="ref2">2</a></sup
+          >
+          This second sentence includes another footnote to test multiple notes
+          in the same document.<sup><a href="#fn3" id="ref3">3</a></sup>
+        </p>
+        <p>
+          In summary, this document is meant to be simple, readable, and rich
+          enough to test whether structure survives across authoring, PDF
+          generation, validation, and extraction workflows.
+        </p>
+    </article>
+    <footer>
+        <p><a href="#ref1" id="fn1">[1]</a> In this benchmark, "structure" includes headings, lists, tables, figures, links, reading order, and metadata.</p>
+        <p><a href="#ref2" id="fn2">[2]</a> A footnote should remain associated with the correct reference point in the main text.</p>
+        <p><a href="#ref3" id="fn3">[3]</a> Some pipelines preserve footnote text but lose the reference structure or numbering semantics.</p>
+    </footer>
+  </body>
+</html>

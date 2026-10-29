@@ -1,0 +1,117 @@
+\DocumentMetadata{
+    pdfstandard=ua-2,
+    % pdfversion=1.7, % Force 1.7 for UA-1 compatibility
+    tagging=on,
+    testphase={phase-III,table,list},
+    lang=en-US,
+}
+
+\documentclass{article}
+
+% Fix for the MathML/unicode-math warning 
+\tagpdfsetup{math/mathml/luamml/load=false}
+
+% Language and font encoding
+\usepackage[british]{babel}
+
+\usepackage{hyperref}      
+\hypersetup{
+    pdftitle={Semantic Benchmark for PDF/UA}, % Matches \title
+    pdfauthor={Floris},
+    pdfdisplaydoctitle=true
+}
+\usepackage{graphicx}      
+\usepackage{booktabs}      
+\usepackage{xcolor}        
+\usepackage{enumitem}      
+
+% Define Title Metadata
+\title{Semantic Benchmark for PDF/UA}
+\author{Floris}
+\date{\today}
+
+\begin{document}
+
+\section{Introduction}
+This document is intended as a small semantic benchmark for PDF/UA generation and structure recovery. It contains headings, paragraphs, lists, links, code blocks, a blockquote, a table, a figure, and footnotes.
+
+The main goal is to test whether common authoring pipelines preserve document structure from source to PDF and back again. For a general reference on Markdown, see the \href{https://www.markdownguide.org/basic-syntax/}{Markdown Guide}.
+
+\subsection{Headings and Paragraphs}
+A structured document should preserve heading hierarchy, paragraph flow, and inline semantics. This paragraph contains \textbf{bold text}, \textit{italic text}, and \texttt{inline code} to test whether emphasis and code are preserved during conversion.
+
+\subsubsection{Inline Semantics}
+Semantic preservation matters because a heading is not just larger text, and a list is not just visually indented text. A machine-readable document should retain these distinctions so that downstream extraction tools can recover them reliably.\footnote{In this benchmark, ``structure'' includes headings, lists, tables, figures, links, reading order, and metadata.}
+
+\section{Lists}
+Below is an unordered list with nesting:
+\begin{itemize}
+    \item First bullet item
+    \item Second bullet item
+    \begin{itemize}
+        \item Nested bullet item
+        \item Another nested bullet with a \href{https://www.w3.org/}{link to the W3C}
+    \end{itemize}
+    \item Third bullet item
+\end{itemize}
+
+Below is an ordered list with nesting:
+\begin{enumerate}
+    \item Prepare the source file.
+    \item Export the document to PDF.
+    \begin{enumerate}
+        \item Enable accessibility tags if the tool supports them.
+        \item Record the export settings.
+    \end{enumerate}
+    \item Validate the resulting PDF.
+    \item Compare the extracted output against the source.
+\end{enumerate}
+
+\section{Blockquote}
+\begin{quote}
+    A document can look visually correct while still being structurally broken. Accessibility and machine readability depend on the logical structure being preserved, not only on the page layout.
+\end{quote}
+
+\section{Code Block}
+The following shell command illustrates a simple conversion workflow:
+\begin{verbatim}
+pandoc doc-a-semantic-article.md -o doc-a.tex
+lualatex doc-a.tex
+\end{verbatim}
+
+A second code example in Python:
+\begin{verbatim}
+from pathlib import Path
+
+source = Path("doc-a-semantic-article.md")
+print(f"Processing {source.name}")
+\end{verbatim}
+
+\section{Table Example}\label{sec:table-example}
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\textbf{Element} & \textbf{Example} & \textbf{Purpose} \\\hline
+Heading & '\# Introduction' & Encodes section hierarchy \\
+Emphasis & '\textasteriskcentered' & Marks strong importance \\
+Link & '[]()' & Preserves navigation and references \\
+Footnote & '\^{}1' & Adds supporting notes \\
+Code & 'inline' & Distinguishes literal code from text \\
+\end{tabular}
+\end{table}
+
+\section{Figure Example}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[alt={Coffee and croissant on a bench},width=0.3\textwidth]{../assets/FILE_A_IMG.jpg}
+    \caption{Example figure used to test image handling, alt text, and caption preservation.}
+    \label{fig:bench}
+\end{figure}
+
+\section{Footnotes and Closing}
+This sentence includes a footnote for testing purposes.\footnote{A footnote should remain associated with the correct reference point in the main text.} This second sentence includes another footnote to test multiple notes in the same document.\footnote{Some pipelines preserve footnote text but lose the reference structure or numbering semantics.}
+
+In summary, this document is meant to be simple, readable, and rich enough to test whether structure survives across authoring, PDF generation, validation, and extraction workflows
+
+
+\end{document}
